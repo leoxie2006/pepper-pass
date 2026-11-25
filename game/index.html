@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pepper Pass · Night Kitchen</title>
+<style>
+:root{color-scheme:dark;--ink:#211b1a;--gold:#f7cb81;--cream:#ffe9bd;--mint:#afe0ba;--red:#f27555;--muted:#c0a991;--line:#926448}
+*{box-sizing:border-box}body{margin:0;background:#171416;color:var(--cream);font:15px system-ui,sans-serif}button{font:inherit;cursor:pointer;color:inherit}button:focus-visible{outline:3px solid #bcffbe;outline-offset:4px}button:disabled{cursor:not-allowed;opacity:.45}
+.shell{max-width:1360px;margin:auto;padding:25px 4vw 22px}.top,.row,.hud,.heading,.hero,.actions,.bounds,.ticket-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.top{border-bottom:1px solid #574039;padding-bottom:14px;color:#eecfa6;font-size:11px;letter-spacing:.2em;text-transform:uppercase}.mark{color:var(--red);font-weight:900}.lights{color:var(--mint)}.hero{padding:17px 0 16px}.label,.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:850;color:var(--gold)}h1,h2,p{margin:0}h1{font:bold clamp(44px,7vw,88px)/.92 Georgia,serif;letter-spacing:-.08em;color:#ffe1a8;text-shadow:3px 4px #6f3528}h1 i{color:#ff8c63;font-weight:400}.subtitle{color:var(--muted);margin-top:12px}.hud{gap:8px}.chip{background:#282223;border:1px solid #60463c;border-radius:12px;padding:10px 14px;min-width:73px}.chip small{display:block;color:#d5b79c;font-size:9px;letter-spacing:.15em}.chip b{display:block;font:700 25px Georgia;color:#fff1c8}.chip.timer b{color:var(--mint)}.chip.timer.danger b{color:#ff8a72}
+.dashboard{display:grid;grid-template-columns:minmax(0,2.3fr) minmax(255px,1fr);gap:14px}.kitchen,.board{border:1px solid #77513e;border-radius:18px;overflow:hidden;background:#241c1d}.heading{padding:12px 17px;border-bottom:1px solid #6d4b38;background:#302424}.tag{border:1px solid #88664b;border-radius:100px;padding:4px 8px;font-size:10px;color:#e9c999;white-space:nowrap}
+.scene{position:relative;height:clamp(260px,34vw,425px);overflow:hidden;isolation:isolate;background:#432a2a}.scene>svg.wall{width:100%;height:100%;display:block}.station{position:absolute;top:56%;transform:translate(-50%,-50%);width:27%;display:grid;justify-items:center;gap:4px}.prep{left:17%}.fire{left:50%}.pass{left:82%}.station svg{width:100%;max-height:155px;overflow:visible;filter:drop-shadow(0 7px 4px #25141588)}.station .station-label{background:#20191b;border:1px solid #a97c53;border-radius:30px;padding:4px 9px;color:#ffe6b0;font-size:10px;font-weight:800;letter-spacing:.13em;white-space:nowrap}.station em{font-size:11px;color:#fff0c4;background:#271820bd;border-radius:7px;padding:2px 5px;text-align:center;font-style:normal;min-height:18px}.scene.ready .pass svg{filter:drop-shadow(0 0 11px #ffe39a99)}.scene.hot .fire svg{filter:drop-shadow(0 0 12px #fd684fc0)}.scene.burning .fire svg{filter:drop-shadow(0 0 20px #fb452f)}#dish,#wokfood,#trayfood{opacity:0;transition:opacity .2s}#dish.shown,#wokfood.shown,#trayfood.shown{opacity:1}.steam{opacity:0}.hot .steam{opacity:.75;animation:drift 2s infinite ease-in-out;transform-origin:center}@keyframes drift{50%{transform:translateY(-7px);opacity:.35}}.sign{position:absolute;top:15%;left:50%;transform:translateX(-50%) rotate(-2deg);padding:9px 15px;border:1px solid #f6bf78;border-radius:9px;background:#381e22;box-shadow:0 0 15px #f8774e55;color:#ffe0a8;text-align:center;white-space:nowrap;letter-spacing:.2em;font-size:10px}.sign b{font:700 15px Georgia;display:block;letter-spacing:.15em;color:#ff9f72}.scene.note .sign{color:#fff}
+.bottom{padding:11px 14px 14px;background:#2b2222}.bounds{color:#d8b99b;font-size:11px;margin-bottom:7px}.meter{height:12px;background:#1b1718;border-radius:10px;border:1px solid #76523f;position:relative;overflow:hidden}.zone{position:absolute;left:68%;width:26%;height:100%;background:#67a878;opacity:.65}.fill{position:absolute;left:0;top:0;height:100%;width:0;background:linear-gradient(90deg,#ffd579,#ff8056);border-radius:10px;transition:width .12s linear}.actions{justify-content:stretch;margin-top:10px}.actions button,.controls button{flex:1;border:1px solid #795742;background:#3d2929;border-radius:9px;min-height:38px;font-weight:800;font-size:12px}.actions button:hover,.controls button:hover:not(:disabled){background:#583736}.actions button.accent{background:#afe0ba;color:#19291f;border-color:#baffca}.actions button.accent:hover{background:#d3f7d8}kbd{border:1px solid currentColor;opacity:.7;font:10px ui-monospace,monospace;border-radius:4px;padding:1px 4px;margin-right:4px}
+.board{display:flex;flex-direction:column}.tickets{display:grid;gap:8px;padding:12px}.ticket{border-radius:9px;padding:9px 11px;background:#3b2b29;border:1px solid #6d5242}.ticket.active{background:#f5d7a1;color:#37261e;border-color:#ffe9b9;box-shadow:3px 4px #190f13}.ticket-head strong{font:700 16px Georgia}.ticket small{font-size:10px}.recipe{margin-top:5px;font-size:12px}.ticket:not(.active) .recipe{color:#dbc0a4}.ingredients{margin-top:auto;padding:10px 12px 12px;border-top:1px solid #614539}.ingredient-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:8px}.ingredient{display:flex;align-items:center;gap:6px;text-align:left;min-height:36px;border:1px solid #745342;border-radius:8px;background:#322526;font-size:11px;font-weight:750;padding:4px 6px}.ingredient:hover{background:#563533}.ingredient.selected{border-color:#aee5b0;background:#354132}.food{width:22px;height:18px;flex:none;display:inline-block;position:relative;filter:drop-shadow(0 2px 0 #1a1416)}.food:before,.food:after{position:absolute;content:"";background:var(--c,#ffcd7b)}.food:before{height:75%;width:75%;border-radius:5px;left:1px;top:2px;transform:rotate(-16deg)}.food:after{height:58%;width:52%;border-radius:4px;right:0;bottom:1px;transform:rotate(19deg);background:var(--d,#d98956)}.food.tofu{--c:#ffefc6;--d:#eac38c}.food.chili{--c:#f66a51;--d:#c53539}.food.scallion{--c:#9fda78;--d:#538950}.food.noodles{--c:#ffc973;--d:#ef9c50}.food.mushroom{--c:#c796ab;--d:#775c89}.food.sesame{--c:#f8e6a0;--d:#bf936c}
+.foot{padding-top:10px}.foot p{max-width:80ch;color:#dabca2;font-size:12px}.foot #feedback{color:var(--mint);font-weight:800}.controls{display:flex;gap:7px;min-width:190px}.controls button{padding:4px 10px;min-height:30px;font-size:10px}.result{position:absolute;inset:0;z-index:6;background:#1d1518e8;display:grid;place-items:center;text-align:center;padding:15px}.result[hidden]{display:none}.result>div{max-width:400px}.result h2{font:bold 42px Georgia;color:#ffe4ac;margin:6px 0}.result p{color:#e2bd9b}.result button{margin-top:13px;padding:8px 17px;background:#9fcca5;color:#17241e;border:0;border-radius:8px;font-weight:900}.legend{margin-top:5px}.stage-title{margin-top:1px}
+@media(max-width:830px){.dashboard{grid-template-columns:1fr}.board{display:grid;grid-template-columns:1fr 1fr}.board .heading{grid-column:1/-1}.ingredients{margin:0;border-top:0;border-left:1px solid #614539}.hero{flex-wrap:wrap}.shell{padding:17px 3vw}.scene{height:clamp(238px,52vw,340px)}}
+@media(max-width:430px){.board{grid-template-columns:1fr}.ingredients{border-left:none;border-top:1px solid #614539}.chip{padding:7px 10px}.foot{align-items:flex-start;flex-direction:column}.controls{width:100%}.actions{gap:4px}.actions button{font-size:10px}.station em{font-size:9px}.station .station-label{font-size:8px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style></head>
+<body><main class="shell">
+<header class="top"><span><span class="mark">◆</span> &nbsp; RED LANTERN MARKET / STALL 08</span><span id="shiftLabel" class="lights">● &nbsp; NIGHT SERVICE</span></header>
+<section class="hero"><div><div class="eyebrow stage-title">The night market is hungry</div><h1>Pepper <i>Pass</i></h1><p class="subtitle">A Sichuan night kitchen. Prep fast, pull at the green, serve with flair.</p></div>
+<div class="hud"><div class="chip timer" id="clockBox"><small>SHIFT CLOCK</small><b id="clock">01:30</b></div><div class="chip"><small>SCORE</small><b id="score">000</b></div><div class="chip"><small>STREAK</small><b id="streak">×0</b></div></div></section>
+<div class="dashboard">
+<section class="kitchen" aria-label="Kitchen">
+<div class="heading"><span class="eyebrow">01 / Kitchen stations</span><span class="tag" id="phase">AWAITING FIRST ORDER</span></div>
+<div class="scene" id="scene">
+<svg class="wall" viewBox="0 0 900 410" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="wall" x2="0" y2="1"><stop stop-color="#462b30"/><stop offset="1" stop-color="#6d4437"/></linearGradient><linearGradient id="counter" x2="0" y2="1"><stop stop-color="#865741"/><stop offset="1" stop-color="#41292a"/></linearGradient><pattern id="tile" width="61" height="41" patternUnits="userSpaceOnUse"><path d="M0 0h61v41M0 41V0" fill="none" stroke="#20161c" opacity=".32" stroke-width="2"/><path d="M2 39h56" stroke="#ba7760" opacity=".24"/></pattern><radialGradient id="light"><stop stop-color="#ffb963" stop-opacity=".6"/><stop offset="1" stop-color="#ff764e" stop-opacity="0"/></radialGradient><pattern id="wood" width="144" height="21" patternUnits="userSpaceOnUse"><path d="M0 4h100m-90 10h55m33-3h46" stroke="#e3a775" opacity=".14"/></pattern></defs>
+<path fill="url(#wall)" d="M0 0h900v410H0z"/><path fill="url(#tile)" d="M0 20h900v246H0z"/><ellipse cx="167" cy="136" rx="160" ry="138" fill="url(#light)"/><ellipse cx="732" cy="136" rx="160" ry="138" fill="url(#light)"/>
+<path d="M0 3q450 80 900 0" fill="none" stroke="#29191c" stroke-width="5"/>
+<g transform="translate(158 58)"><path d="M0-35V0" stroke="#302026" stroke-width="3"/><ellipse rx="29" ry="20" fill="#ff8a57" stroke="#6c3029" stroke-width="3"/><path d="M-16-16q-19 17 0 32m32-32q19 17 0 32M0-18v37m-9 1h18m-7 1v13" fill="none" stroke="#b94635" stroke-width="3"/></g>
+<g transform="translate(745 58)"><path d="M0-35V0" stroke="#302026" stroke-width="3"/><ellipse rx="29" ry="20" fill="#ff8a57" stroke="#6c3029" stroke-width="3"/><path d="M-16-16q-19 17 0 32m32-32q19 17 0 32M0-18v37m-9 1h18m-7 1v13" fill="none" stroke="#b94635" stroke-width="3"/></g>
+<path d="M18 165h170m524 0h170" stroke="#261a21" stroke-width="9"/><g fill="#c37d59" stroke="#402628" stroke-width="3"><path d="M44 160v-22h23v22zm24 0v-30h19v30zm21 0v-17h26v17zm675 0v-18h28v18zm33 0v-27h20v27zm25 0v-33h20v33z"/></g>
+<path d="M0 233h900v169H0z" fill="url(#counter)"/><path d="M0 233h900v169H0z" fill="url(#wood)"/><path d="M0 234h900m-900 78h900m-900 38h900" stroke="#b77c55" stroke-opacity=".5" stroke-width="2"/><g transform="translate(102 319)" stroke="#4a2b27" stroke-width="3"><ellipse rx="38" ry="14" fill="#795041"/><ellipse rx="35" ry="12" fill="#edb781"/><path d="M-22-1l7-5 7 5-7 6zm12-3l10-5 7 5-7 7zM4-1l9-6 9 5-9 7z" fill="#ffdf9f" stroke="#be8759" stroke-width="1.2"/></g><g transform="translate(186 336)" stroke="#4a2b27" stroke-width="3"><ellipse rx="39" ry="15" fill="#795041"/><ellipse rx="35" ry="12" fill="#a7a181"/><path d="M-23 3Q-10 8-6-2m-9 6Q-1 8 2-4M4 4q12 2 17-10" fill="none" stroke="#ed6850" stroke-width="4" stroke-linecap="round"/><path d="M-7-3l3-3m6 1 2-3m17 3 2-3" stroke="#b3d283" stroke-width="2"/></g><g transform="translate(738 329)" stroke="#4a2b27" stroke-width="3"><ellipse rx="37" ry="14" fill="#795041"/><ellipse rx="33" ry="11" fill="#e6c99a"/><path d="M-21 1l6-5m4 5 4-5m3 5 5-6m-2 9 5-6m7 4 5-5m3 1 4-4" stroke="#72ab61" stroke-width="4" stroke-linecap="round"/></g><path d="M0 378h900v32H0z" fill="#2b1d21"/><path d="M300 240l-27 138m334-138 29 138" stroke="#20161b" stroke-width="3" opacity=".4"/></svg>
+<div class="sign"><b>THE PEPPER PASS</b> CHOP · FIRE · PLATE</div>
+<div class="station prep"><svg viewBox="0 0 180 115" aria-hidden="true"><ellipse cx="89" cy="91" rx="75" ry="15" fill="#301e20" opacity=".6"/><path d="M27 53l116-6 11 32-4 7L22 90l-6-9z" fill="#9d5d3e" stroke="#4d2a28" stroke-width="3"/><path d="M26 49l116-6 12 36-138 4z" fill="#d89457" stroke="#e9aa68" stroke-width="3"/><path d="M36 78l39-3m10-22 41-3m-66 9 12-1" stroke="#a2684f" stroke-width="2"/><g id="trayfood"></g><path d="M119 70l16-28 10 6-14 25z" fill="#c8c9c1" stroke="#5f6266" stroke-width="2"/><path d="M135 45l13-19 7 5-12 18z" fill="#3b2b30" stroke="#201e25" stroke-width="2"/></svg><span class="station-label">01 · PREP BOARD</span><em id="prepText">Pick 3 ingredients</em></div>
+<div class="station fire"><svg viewBox="0 0 180 115" aria-hidden="true"><ellipse cx="86" cy="93" rx="68" ry="13" fill="#2f2428"/><path d="M32 81h109l6 12H27z" fill="#45434d" stroke="#27232d" stroke-width="4"/><path d="M55 82l9-13 8 11 9-21 12 22 7-13 11 14" fill="#e5824d" stroke="#ffb165" stroke-width="2"/><path d="M34 54q7 35 49 35t54-35" fill="#242832" stroke="#141820" stroke-width="3"/><ellipse cx="86" cy="53" rx="53" ry="15" fill="#555461" stroke="#9493a0" stroke-width="3"/><ellipse cx="86" cy="55" rx="43" ry="10" fill="#312d35"/><path d="M135 54l35-12" stroke="#30262a" stroke-width="9" stroke-linecap="round"/><g id="wokfood"></g><g class="steam" fill="none" stroke="#ffe9b8" stroke-linecap="round" stroke-width="2"><path d="M66 41q12-9 1-16t4-13M89 39q-8-10 2-16t3-13m14 30q11-7 3-14"/></g></svg><span class="station-label">02 · WOK FIRE</span><em id="fireText">Waiting for prep</em></div>
+<div class="station pass"><svg viewBox="0 0 180 115" aria-hidden="true"><ellipse cx="88" cy="79" rx="64" ry="18" fill="#332025"/><ellipse cx="88" cy="68" rx="64" ry="24" fill="#94b79f" stroke="#d9e6c3" stroke-width="3"/><ellipse cx="88" cy="67" rx="50" ry="17" fill="#568978" stroke="#c9e0bd" stroke-width="2"/><ellipse cx="88" cy="67" rx="42" ry="13" fill="#487363"/><g id="dish"></g><path d="M120 33l41-13m-36 19 42-11" stroke="#ffd28a" stroke-width="3" stroke-linecap="round"/></svg><span class="station-label">03 · THE PASS</span><em id="plateText">No plate yet</em></div>
+<div class="result" id="result" hidden><div><div class="eyebrow">Night service complete</div><h2 id="resultTitle"></h2><p id="resultStats"></p><button type="button" id="playAgain">Start a new shift</button></div></div>
+</div>
+<div class="bottom"><div class="bounds"><span>WOK TEMPERATURE</span><strong id="heatLabel">COLD</strong><span>GREEN = PLATE</span></div><div class="meter" role="progressbar" aria-label="Wok temperature" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="zone"></div><div class="fill" id="fill"></div></div>
+<div class="actions"><button id="chop"><kbd>Q</kbd>Chop</button><button id="cook"><kbd>W</kbd>Fire</button><button id="plate"><kbd>E</kbd>Plate</button><button id="serve"><kbd>↵</kbd>Serve</button><button id="clear"><kbd>X</kbd>Reset</button></div></div>
+</section>
+<aside class="board"><div class="heading"><span class="eyebrow">02 / Order rail</span><span class="tag">FIRST TICKET FIRST</span></div><div class="tickets" id="tickets"></div><div class="ingredients"><div class="eyebrow">Pantry · tap or press 1–6</div><div class="ingredient-grid" id="ingredients"></div></div></aside>
+</div><footer class="row foot"><div><p id="feedback" aria-live="polite"></p><p class="legend">Pick the ticket’s three ingredients in any order → chop twice → fire → plate at green → serve. Reset clears the current dish.</p></div><div class="controls"><button id="sound" aria-pressed="false">SOUND OFF</button><button id="restart">NEW SHIFT</button></div></footer></main>
+<script>
+'use strict';
+const ING=['Tofu','Chili','Scallion','Noodles','Mushroom','Sesame'];
+const KEYS=ING.map(x=>x.toLowerCase());
+const colors=[['#ffe2a2','#ffeeca'],['#a72736','#ff7150'],['#4c9658','#b7df72'],['#dc974a','#ffcf76'],['#755373','#d69aab'],['#b67f4f','#ffe8a0']];
+const recipes=[
+ ['Mapo Moon Tofu','Silky cubes, red oil, fresh greens',[0,1,2]],
+ ['Lantern Noodles','Slippery noodles in fragrant chili oil',[3,1,5]],
+ ['Jade Forest Wok','Woodland mushrooms with scallion',[4,2,5]],
+ ['Golden Sesame Tofu','Toasted sesame and wok-seared tofu',[0,4,5]],
+ ['Midnight Dan Dan','Deep heat with a bright scallion finish',[3,1,2]],
+ ['Market Mushroom Bowl','A smoky, spicy noodle bowl',[3,4,1]]
+];
+const $=id=>document.getElementById(id);
+const ingredientBtns=[];
+let state,ac,muted=true,lastDisplay=-1;
+function audio(f=480,t=.1,mode='sine',vol=.06){
+ if(muted)return;
+ try{ac=ac||new (window.AudioContext||window.webkitAudioContext)(); if(ac.state==='suspended')ac.resume().catch(()=>{});
+ const osc=ac.createOscillator(),g=ac.createGain(),a=ac.currentTime;osc.type=mode;osc.frequency.setValueAtTime(f,a);g.gain.setValueAtTime(.0001,a);g.gain.exponentialRampToValueAtTime(vol,a+.015);g.gain.exponentialRampToValueAtTime(.0001,a+t);osc.connect(g);g.connect(ac.destination);osc.start();osc.stop(a+t+.01);}catch{}
+}
+function order(n){return {id:n+8, recipe:recipes[n%recipes.length]};}
+function fresh(){state.chosen=[];state.chops=0;state.phase='prep';state.heat=0;state.fireAt=0;state.plated=0;}
+function restart(){
+ state={queue:[order(0),order(1),order(2)],next:3,score:0,streak:0,served:0,burns:0,start:0,remaining:90,ended:false};fresh();lastDisplay=-1;
+ $('result').hidden=true;renderTickets();say('Choose the three ingredients on ticket #08. The clock starts when you pick one.');draw();
+}
+function say(s){$('feedback').textContent=s;}
+function start(){if(!state.start)state.start=performance.now();}
+function renderTickets(){
+ $('tickets').innerHTML=state.queue.map(({id,recipe:r},i)=>'<div class="ticket '+(i?'':'active')+'"><div class="ticket-head"><strong>'+r[0]+'</strong><small>#'+String(id).padStart(2,'0')+'</small></div><div class="recipe">'+r[2].map(j=>ING[j]).join(' · ')+'</div></div>').join('');
+}
+function pick(i){
+ if(state.ended||state.phase!=='prep')return;
+ start();const at=state.chosen.indexOf(i);
+ if(at>=0){state.chosen.splice(at,1);state.chops=0;say(ING[i]+' put back.');}
+ else if(state.chosen.length===3){say('The board is full. Tap an ingredient again to remove it.');return;}
+ else{state.chosen.push(i);state.chops=0;say(state.chosen.length===3?'Board full. Chop twice to prep the dish.':ING[i]+' on the board.');}
+ audio(360+i*50,.08,'triangle');draw();
+}
+function chop(){
+ if(state.ended||state.phase!=='prep'||state.chosen.length!==3)return;
+ if(state.chops===2)return;state.chops++;audio(145,.09,'triangle');
+ say(state.chops===2?'Prep complete. Fire up the wok.':'One more chop.');draw();
+}
+function cook(){
+ if(state.ended||state.phase!=='prep'||state.chops!==2)return;
+ state.phase='wok';state.fireAt=performance.now();audio(185,.2,'triangle');say('Wok on! Plate when the temperature enters the green band.');draw();
+}
+function updateHeat(now){if(state.phase==='wok')state.heat=Math.min(111,(now-state.fireAt)/40);}
+function plate(){
+ if(state.ended||state.phase!=='wok')return;
+ updateHeat(performance.now());
+ if(state.heat<68){say('Not cooked yet. Wait for the green band.');audio(115,.12);return;}
+ if(state.heat>94){burn();return;}
+ state.phase='plated';state.plated=state.heat;audio(620,.15);say('Plate ready! Serve the ticket with Enter.');draw();
+}
+function burn(){
+ state.burns++;state.streak=0;state.score=Math.max(0,state.score-15);state.phase='burnt';state.heat=100;
+ audio(82,.35,'triangle');say('Scorched! −15 points. Reset to try this ticket again.');draw();
+}
+function serve(){
+ if(state.ended||state.phase!=='plated')return;
+ const cur=state.queue[0],ok=cur.recipe[2].every(j=>state.chosen.includes(j));
+ if(!ok){state.score=Math.max(0,state.score-10);state.streak=0;fresh();say('Wrong ingredients. −10 points; the ticket stays on the rail.');audio(102,.19);draw();return;}
+ state.served++;state.streak++;
+ const perfect=state.plated>=77&&state.plated<=88;
+ const pts=(perfect?120:90)+15*(Math.min(5,state.streak)-1);
+ state.score+=pts;state.queue.shift();state.queue.push(order(state.next++));fresh();
+ renderTickets();say((perfect?'Perfect fire! ':'Nice service! ')+cur.recipe[0]+' served. +'+pts+' points.');audio(640,.16);setTimeout(()=>audio(915,.19),80);draw();
+}
+function clear(){if(state.ended)return;fresh();say('Station reset. The current ticket is still on the rail.');draw();}
+function shapes(list,x,y,scale){
+ return list.map((j,i)=>{
+ const p=colors[j],px=x+i*17*scale,py=y+(i%2)*4*scale;
+ if(j===1||j===2||j===3)return '<g transform="translate('+px+' '+py+') scale('+scale+')"><path d="M-8 4q19 4 17-8M-7 0q10 7 17-5" fill="none" stroke="'+p[0]+'" stroke-width="5" stroke-linecap="round"/><path d="M-7 0q10 5 16-4" fill="none" stroke="'+p[1]+'" stroke-width="2" stroke-linecap="round"/></g>';
+ if(j===4)return '<g transform="translate('+px+' '+py+') scale('+scale+')"><path d="M-2-2h5v9h-5z" fill="#eac7a6"/><path d="M-9 0q2-13 18 0z" fill="'+p[1]+'" stroke="'+p[0]+'" stroke-width="2"/></g>';
+ if(j===5)return '<g transform="translate('+px+' '+py+') scale('+scale+')" fill="'+p[1]+'"><ellipse cx="-5" cy="1" rx="3" ry="1.8"/><ellipse cx="0" cy="-4" rx="3" ry="1.8"/><ellipse cx="5" cy="3" rx="3" ry="1.8"/></g>';
+ return '<g transform="translate('+px+' '+py+') scale('+scale+')"><path d="M-8-5l10-5 8 5v9l-10 5-8-5z" fill="'+p[0]+'" stroke="#bf8d66" stroke-width="1.4"/><path d="M-8-5l8 5 10-5-8-5z" fill="'+p[1]+'"/></g>';
+ }).join('');
+}
+function draw(){
+ const p=state.phase,n=state.chosen.length;
+ $('phase').textContent=state.ended?'SHIFT COMPLETE':({prep:state.start?'PREPARING ORDER':'AWAITING FIRST ORDER',wok:'ON THE FIRE',plated:'READY TO SERVE',burnt:'STATION NEEDS RESET'})[p];
+ $('score').textContent=String(state.score).padStart(3,'0');$('streak').textContent='×'+state.streak;
+ $('prepText').textContent=p==='prep'?(n<3?n+'/3 ingredients':state.chops+'/2 chops'):'Board cleared';
+ $('fireText').textContent=({prep:'Waiting for prep',wok:'Listen for the sizzle',plated:'Heat off',burnt:'Scorched'})[p];
+ $('plateText').textContent=p==='plated'?state.queue[0].recipe[0]:'No plate yet';
+ $('scene').classList.toggle('hot',p==='wok');$('scene').classList.toggle('burning',p==='burnt');$('scene').classList.toggle('ready',p==='plated');
+ for(const [id,show,x,y,scale] of [['trayfood',p==='prep'&&n,49,65,1.13],['wokfood',p==='wok'||p==='burnt',66,53,.99],['dish',p==='plated',66,66,1.2]]){
+   const el=$(id);el.classList.toggle('shown',!!show);el.innerHTML=show?(id==='dish'
+     ? '<ellipse cx="88" cy="66" rx="39" ry="13" fill="#ab4938"/><ellipse cx="88" cy="66" rx="34" ry="10" fill="#d3714e"/>' +
+       shapes(state.chosen,61,64,1.04)+shapes([...state.chosen].reverse(),79,70,.81)+
+       '<path d="M63 70l3-2m11 2 4-2m18-5 4-2m9 9 4-2m-18 4 4-2m-12-9 3-2" stroke="#ffde9d" stroke-width="1.3" stroke-linecap="round"/>'
+     : shapes(state.chosen,x,y,scale)):'';
+ }
+ ingredientBtns.forEach((btn,i)=>{const yes=state.chosen.includes(i)&&p==='prep';btn.classList.toggle('selected',yes);btn.setAttribute('aria-pressed',String(yes));btn.disabled=state.ended||p!=='prep';});
+ const can={chop:p==='prep'&&n===3&&state.chops<2,cook:p==='prep'&&state.chops===2,plate:p==='wok',serve:p==='plated',clear:p!=='prep'||n>0};
+ for(const key in can){$(key).disabled=state.ended||!can[key];$(key).classList.toggle('accent',!state.ended&&can[key]&&key!=='clear');}
+ drawHeat();
+}
+function drawHeat(){
+ const h=Math.min(state.heat,100), p=state.phase;
+ $('fill').style.width=h+'%'; document.querySelector('.meter').setAttribute('aria-valuenow',String(Math.floor(h)));
+ $('heatLabel').textContent=p==='plated'?'PLATED':p==='burnt'?'SCORCHED':p!=='wok'?'COLD':h<68?'HEATING':h<=94?'PLATE NOW':'TOO HOT';
+}
+function end(){
+ state.ended=true;$('resultTitle').textContent=state.score>=600?'Market Legend':state.served>=3?'Rush Hour Ready':'Shift Closed';
+ $('resultStats').textContent=state.score+' points · '+state.served+' served · '+state.burns+' scorched';
+ $('result').hidden=false;say('Shift finished. Start a new shift to try for a higher score.');
+ draw();$('playAgain').focus();
+}
+function tick(now){
+ if(state.start&&!state.ended){
+ state.remaining=Math.max(0,90-Math.floor((now-state.start)/1000));
+ if(state.remaining!==lastDisplay){lastDisplay=state.remaining;$('clock').textContent=state.remaining>=60?'01:'+String(state.remaining-60).padStart(2,'0'):'00:'+String(state.remaining).padStart(2,'0');$('clockBox').classList.toggle('danger',state.remaining<=15);}
+ if(!state.remaining)end();
+ else if(state.phase==='wok'){updateHeat(now);if(state.heat>=103)burn();else drawHeat();}
+ }else if(!state.start){$('clock').textContent='01:30';$('clockBox').classList.remove('danger');}
+ requestAnimationFrame(tick);
+}
+ING.forEach((name,i)=>{
+ const b=document.createElement('button');b.type='button';b.className='ingredient';b.innerHTML='<kbd>'+(i+1)+'</kbd><span class="food '+KEYS[i]+'" aria-hidden="true"></span>'+name;b.onclick=()=>pick(i);$('ingredients').append(b);ingredientBtns.push(b);
+});
+const actions={chop,cook,plate,serve,clear,restart,playAgain:restart};
+Object.entries(actions).forEach(([k,fn])=>$(k).onclick=fn);
+$('sound').onclick=()=>{muted=!muted;$('sound').textContent=muted?'SOUND OFF':'SOUND ON';$('sound').setAttribute('aria-pressed',String(!muted));audio(520,.12);};
+document.addEventListener('keydown',e=>{
+ if(e.repeat||e.ctrlKey||e.metaKey||e.altKey)return;
+ const k=e.key.toLowerCase();
+ if(k==='enter'&&e.target instanceof HTMLButtonElement&&e.target===document.activeElement&&state.phase!=='plated')return;
+ const fn={q:chop,w:cook,e:plate,enter:serve,x:clear}[k];
+ if(fn){e.preventDefault();fn();} else if(/^[1-6]$/.test(k)){e.preventDefault();pick(Number(k)-1);}
+});
+restart();requestAnimationFrame(tick);
+</script></body></html>
